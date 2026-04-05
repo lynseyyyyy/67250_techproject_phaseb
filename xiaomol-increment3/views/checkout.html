@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Lynsey Li" />
+  <meta name="keywords" content="Museum, Carnegie Mellon University, Information Systems" />
+  <meta name="description" content="MonoMuse Official Website" />
+  <title>Checkout — MonoMuse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/style.css">
+  <script src="../static/script.js" defer></script>
+
+</head>
+<body onload="addYear()">
+
+  <header>
+    <img id="logo" src="../static/logo.png" alt="MonoMuse Museum Logo">
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="tickets.html">Buy Tickets</a>
+      <a href="checkout.html">Checkout</a>
+    </nav>
+  </header>
+
+  <div class="main">
+    <h1>Checkout</h1>
+
+    <!-- Phase A insight: checkout errors peaked at step 2 -->
+    <!-- Keeping the form simple and clearly labeled reduces errors -->
+    <p>Fill in your details below to complete your ticket purchase.</p>
+
+    <form action="#" method="post">
+
+      <label for="name">Full Name</label><br />
+      <input type="text" id="name" name="name" required /><br /><br />
+
+      <label for="email">Email Address</label><br />
+      <input type="email" id="email" name="email" required /><br /><br />
+
+      <label for="quantity">Ticket Quantity (1–10)</label><br />
+      <input type="number" id="quantity" name="quantity" min="1" max="10" required /><br /><br />
+
+      <button type="submit">Place Order</button>
+
+    </form>
+
+  </div>
+
+  <footer>
+    <p id="copyYear"></p>
+  </footer>
+
+  
+
+</body>
+</html>
