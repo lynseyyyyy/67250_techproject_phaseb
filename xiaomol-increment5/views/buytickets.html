@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Lynsey Li" />
+  <meta name="keywords" content="Museum, Carnegie Mellon University, Information Systems" />
+  <meta name="description" content="MonoMuse Official Website" />
+  <title>Buy Tickets — MonoMuse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/style.css">
+  <script src="../static/script.js" defer></script>
+</head>
+<body onload="addYear()">
+
+  <div class="container">
+
+    <header class="header">
+      <img id="logo" src="../static/logo.png" alt="MonoMuse Museum Logo">
+    </header>
+
+    <nav class="nav_bar">
+      <a href="../index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="buytickets.html">Buy Tickets</a>
+      <a href="checkout.html">Checkout</a>
+      <a href="javascript:void(0);" class="icon" onclick="hamburgerMenu()">☰</a>
+    </nav>
+
+    <main class="main">
+      <h1>Buy Tickets</h1>
+
+      <!-- Phase A insight: members had lowest conversion (7.64%) -->
+      <p>Purchase your tickets in advance and skip the line.
+      Members always enjoy free entry!</p>
+
+      <!-- Ticket Pricing Table -->
+      <h2>Ticket Prices</h2>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Ticket Type</th>
+            <th>Description</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>General</td>
+            <td>Full access to all current exhibitions</td>
+            <td>$18</td>
+          </tr>
+          <tr>
+            <td>Student</td>
+            <td>Valid student ID required at entry</td>
+            <td>$9</td>
+          </tr>
+          <tr>
+            <td>Member</td>
+            <td>Free entry — membership benefits apply</td>
+            <td>$0</td>
+          </tr>
+        </tbody>
+      </table>
+
+        <!-- Date Selection -->
+        <h2>Select Your Visit Date</h2>
+        <p>Choose any available date to plan your visit:</p>
+
+        <label for="visitDate">Select a Date:</label><br />
+        <input type="date" id="visitDate" name="visitDate"
+        min="2026-04-06"
+        max="2026-12-31" /><br /><br />
+
+        <button onclick="showForm()">Buy Now</button>
+
+
+      <!-- Purchase Form — hidden by default -->
+      <div id="purchaseForm" style="display:none;">
+        <h2>Purchase Tickets</h2>
+        <form action="#" method="post">
+
+          <label for="buyName">Full Name</label><br />
+          <input type="text" id="buyName" name="buyName" required /><br /><br />
+
+          <label for="buyEmail">Email Address</label><br />
+          <input type="email" id="buyEmail" name="buyEmail" required /><br /><br />
+
+          <label for="buyQuantity">Number of Tickets (1–10)</label><br />
+          <input type="number" id="buyQuantity" name="buyQuantity" min="1" max="10" required /><br /><br />
+
+          <label for="buyDate">Selected Date</label><br />
+          <input type="text" id="buyDate" name="buyDate" required /><br /><br />
+
+          <button type="button" onclick="alert('Redirecting to payment system.')">Submit</button>
+
+        </form>
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      <p id="copyYear"></p>
+      <div id="weather"></div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
