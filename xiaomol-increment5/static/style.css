@@ -235,6 +235,11 @@ nav a.nav-tickets:hover {
   margin-top: 8px;
   font-size: 1rem;
   padding: 8px 14px;
+  background-color: #f8c7d4;
+  color: #1a1a1a;
+  border: 1px solid #f8c7d4;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 /* Table */
@@ -1215,4 +1220,10 @@ input[type="date"]:focus {
   height: 520px;
   object-fit: cover;
   display: block;
+}
+
+.checkout-section-title {
+  text-align: left;
+  font-size: 2.2rem;
+  margin-bottom: 24px;
 }

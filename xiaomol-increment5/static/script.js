@@ -160,14 +160,13 @@ document.addEventListener("DOMContentLoaded", function() {
 function getWeather() {
   if (document.getElementById("weather")) {
     // Pittsburgh coordinates
-    var url = "https://api.open-meteo.com/v1/forecast?latitude=40.4406&longitude=-79.9959&current=temperature_2m,weathercode&temperature_unit=fahrenheit";
-
+    var url = "https://wttr.in/Pittsburgh?format=j1";
     fetch(url)
       .then(function(response) {
         return response.json();
       })
       .then(function(data) {
-        var temp = Math.round(data.current.temperature_2m);
+        var temp = Math.round(data.current_condition[0].temp_F);
         document.getElementById("weather").innerHTML = "📍 Pittsburgh: " + temp + "°F";
       })
       .catch(function(error) {

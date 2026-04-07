@@ -332,26 +332,56 @@
   var dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
   // Events array — each object has month (0-indexed), day, label
-  var events = [
-    { month: 3, day: 6,  label: "General Admission" },
-    { month: 3, day: 8,  label: "General Admission" },
-    { month: 3, day: 9,  label: "General Admission" },
-    { month: 3, day: 10, label: "General Admission" },
-    { month: 3, day: 11, label: "General Admission" },
-    { month: 3, day: 13, label: "8:00 PM — Sound Series" },
-    { month: 3, day: 13, label: "General Admission" },
-    { month: 3, day: 15, label: "5:00 PM — Youth Event" },
-    { month: 3, day: 15, label: "General Admission" },
-    { month: 3, day: 16, label: "General Admission" },
-    { month: 3, day: 17, label: "General Admission" },
-    { month: 3, day: 18, label: "General Admission" },
-    { month: 3, day: 20, label: "General Admission" },
-    { month: 3, day: 23, label: "General Admission" },
-    { month: 3, day: 24, label: "General Admission" },
-    { month: 3, day: 25, label: "General Admission" },
-    { month: 3, day: 27, label: "General Admission" },
-    { month: 3, day: 30, label: "General Admission" }
-  ];
+  var events = [];
+
+  // Add General Admission for every open day from April–December 2026
+  function populateGeneralAdmission() {
+    for (var m = 0; m <= 11; m++) {
+      var daysInMonth = new Date(currentYear, m + 1, 0).getDate();
+
+      for (var d = 1; d <= daysInMonth; d++) {
+        var dayOfWeek = new Date(currentYear, m, d).getDay();
+
+        // Closed on Tuesdays
+        if (dayOfWeek !== 2) {
+          events.push({ month: m, day: d, label: "General Admission" });
+        }
+      }
+    }
+  }
+
+  // Add special events manually
+  function addSpecialEvents() {
+    events.push({ month: 3, day: 13, label: "8:00 PM — Sound Series" });
+    events.push({ month: 3, day: 15, label: "5:00 PM — Youth Event" });
+
+    events.push({ month: 4, day: 9,  label: "7:00 PM — Artist Talk" });
+    events.push({ month: 4, day: 21, label: "6:30 PM — Student Night" });
+
+    events.push({ month: 5, day: 12, label: "8:00 PM — Media Performance" });
+    events.push({ month: 5, day: 26, label: "1:00 PM — Family Workshop" });
+
+    events.push({ month: 6, day: 10, label: "6:00 PM — Summer Opening" });
+    events.push({ month: 6, day: 24, label: "2:00 PM — Curator Tour" });
+
+    events.push({ month: 7, day: 14, label: "7:30 PM — Sound Series" });
+    events.push({ month: 7, day: 28, label: "3:00 PM — Youth Event" });
+
+    events.push({ month: 8, day: 11, label: "6:00 PM — Member Preview" });
+    events.push({ month: 8, day: 25, label: "1:00 PM — Family Workshop" });
+
+    events.push({ month: 9, day: 8,  label: "7:00 PM — Artist Talk" });
+    events.push({ month: 9, day: 22, label: "5:30 PM — Design Lecture" });
+
+    events.push({ month: 10, day: 6,  label: "6:00 PM — Fall Opening" });
+    events.push({ month: 10, day: 20, label: "2:00 PM — Curator Tour" });
+
+    events.push({ month: 11, day: 4,  label: "7:00 PM — Winter Program" });
+    events.push({ month: 11, day: 18, label: "1:00 PM — Family Day" });
+  }
+
+  populateGeneralAdmission();
+  addSpecialEvents();
 
   // Helper — get events for a specific day using a for loop
   function getEventsForDay(month, day) {
