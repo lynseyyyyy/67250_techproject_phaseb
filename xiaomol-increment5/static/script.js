@@ -65,49 +65,50 @@ var hour = now.getHours();
 function greeting(h) {
   if (document.getElementById("greeting")) {
     if (h < 5 || h >= 20) {
-      document.getElementById("greeting").innerHTML = "Good night! Welcome to MonoMuse";
+      document.getElementById("greeting").innerHTML = "Good night!";
     } else if (h < 12) {
-      document.getElementById("greeting").innerHTML = "Good morning! Welcome to MonoMuse";
+      document.getElementById("greeting").innerHTML = "Good morning!";
     } else if (h < 18) {
-      document.getElementById("greeting").innerHTML = "Good afternoon! Welcome to MonoMuse";
+      document.getElementById("greeting").innerHTML = "Good afternoon!";
     } else {
-      document.getElementById("greeting").innerHTML = "Good evening! Welcome to MonoMuse";
+      document.getElementById("greeting").innerHTML = "Good evening!";
     }
   }
 }
 
-greeting(hour);
-
 // Dynamic Footer Year
 function addYear() {
-  var currentYear = new Date().getFullYear();
-  document.getElementById("copyYear").innerHTML = "&copy; " + currentYear + " MonoMuse. All rights reserved.";
+  if (document.getElementById("copyYear")) {
+    var currentYear = new Date().getFullYear();
+    document.getElementById("copyYear").innerHTML = "&copy; " + currentYear + " MonoMuse. All rights reserved.";
+  }
 }
 
 // Active Navigation Bar
 function ActiveNav() {
-  const navLinks = document.querySelectorAll('nav a');
-  navLinks.forEach(link => {
+  var navLinks = document.querySelectorAll("nav a");
+
+  navLinks.forEach(function(link) {
     if (window.location.href === link.href) {
       link.classList.add("active");
     }
   });
 }
 
-ActiveNav();
-
 // Read More / Less Toggle
-$("#readMore").click(function() {
-  $("#longIntro").show();
-  $("#readLess").show();
-  $("#readMore").hide();
-});
+if (typeof window.jQuery !== "undefined") {
+  $("#readMore").click(function() {
+    $("#longIntro").show();
+    $("#readLess").show();
+    $("#readMore").hide();
+  });
 
-$("#readLess").click(function() {
-  $("#longIntro").hide();
-  $("#readMore").show();
-  $("#readLess").hide();
-});
+  $("#readLess").click(function() {
+    $("#longIntro").hide();
+    $("#readMore").show();
+    $("#readLess").hide();
+  });
+}
 
 // Purchase Form
 function showForm() {
@@ -119,34 +120,43 @@ function showForm() {
   }
 
   document.getElementById("purchaseForm").style.display = "block";
-  document.getElementById("buyDate").value = selectedDate;
+
+  if (document.getElementById("buyDate")) {
+    document.getElementById("buyDate").value = selectedDate;
+  }
 }
 
 // Hamburger Menu
 function hamburgerMenu() {
   var x = document.getElementById("navbar");
-  if (x.className === "nav_bar") {
-    x.className += " responsive";
-  } else {
-    x.className = "nav_bar";
+
+  if (x) {
+    if (x.className === "nav_bar") {
+      x.className += " responsive";
+    } else {
+      x.className = "nav_bar";
+    }
   }
 }
 
 // Leaflet Map
-if (document.getElementById("map")) {
-  var map = L.map('map').setView([40.4406, -79.9959], 15);
+document.addEventListener("DOMContentLoaded", function() {
+  var mapEl = document.getElementById("map");
 
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
+  if (mapEl && typeof L !== "undefined") {
+    var map = L.map("map").setView([40.4406, -79.9959], 15);
 
-  // MonoMuse location
-  L.marker([40.4406, -79.9959]).addTo(map)
-    .bindPopup('MonoMuse Museum — Pittsburgh, PA')
-    .openPopup();
-}
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-// Weather API 
+    L.marker([40.4406, -79.9959]).addTo(map)
+      .bindPopup("MonoMuse Museum — Pittsburgh, PA")
+      .openPopup();
+  }
+});
+
+// Weather API
 function getWeather() {
   if (document.getElementById("weather")) {
     // Pittsburgh coordinates
@@ -158,8 +168,7 @@ function getWeather() {
       })
       .then(function(data) {
         var temp = Math.round(data.current.temperature_2m);
-        document.getElementById("weather").innerHTML =
-          "📍 Pittsburgh: " + temp + "°F";
+        document.getElementById("weather").innerHTML = "📍 Pittsburgh: " + temp + "°F";
       })
       .catch(function(error) {
         console.log("Weather error: " + error);
@@ -167,4 +176,96 @@ function getWeather() {
   }
 }
 
+// Add To Cart
+function addToCart() {
+  var selectedDate = document.getElementById("selectedDateLabel").textContent;
+  var selectedTime = document.getElementById("selectedTimeLabel").textContent;
+  var total = document.getElementById("orderTotal").textContent;
+
+  var adult = parseInt(document.getElementById("qty-adult").value);
+  var senior = parseInt(document.getElementById("qty-senior").value);
+  var student = parseInt(document.getElementById("qty-student").value);
+  var child = parseInt(document.getElementById("qty-child").value);
+  var infant = parseInt(document.getElementById("qty-infant").value);
+  var member = parseInt(document.getElementById("qty-member").value);
+
+  var totalQty = adult + senior + student + child + infant + member;
+
+  if (!selectedDate || selectedDate === "" || totalQty === 0) {
+    alert("Please select a date and at least one ticket.");
+    return;
+  }
+
+  var cart = {
+    date: selectedDate,
+    time: selectedTime,
+    adult: adult,
+    senior: senior,
+    student: student,
+    child: child,
+    infant: infant,
+    member: member,
+    totalQty: totalQty,
+    total: total
+  };
+
+  sessionStorage.setItem("monoMuseCart", JSON.stringify(cart));
+  window.location.href = "checkout.html";
+}
+
+// Load Cart Into Checkout
+function loadCartIntoCheckout() {
+  var cartData = sessionStorage.getItem("monoMuseCart");
+
+  if (!cartData) {
+    return;
+  }
+
+  var cart = JSON.parse(cartData);
+
+  if (document.getElementById("cartDate")) {
+    document.getElementById("cartDate").innerHTML = cart.date || "—";
+  }
+
+  if (document.getElementById("cartTime")) {
+    document.getElementById("cartTime").innerHTML = cart.time || "—";
+  }
+
+  if (document.getElementById("cartQty")) {
+    document.getElementById("cartQty").innerHTML = cart.totalQty || "0";
+  }
+
+  if (document.getElementById("cartTotal")) {
+    document.getElementById("cartTotal").innerHTML = cart.total || "$0.00";
+  }
+
+  if (document.getElementById("visitDate") && cart.date) {
+    document.getElementById("visitDate").value = cart.date;
+  }
+
+  if (document.getElementById("quantity") && cart.totalQty) {
+    document.getElementById("quantity").value = cart.totalQty;
+  }
+
+  if (document.getElementById("summaryDate")) {
+    document.getElementById("summaryDate").innerHTML = cart.date || "—";
+  }
+
+  if (document.getElementById("summaryQty")) {
+    document.getElementById("summaryQty").innerHTML = cart.totalQty || "—";
+  }
+
+  if (document.getElementById("summaryTotal")) {
+    document.getElementById("summaryTotal").innerHTML = cart.total || "$0.00";
+  }
+
+  if (document.getElementById("totalAmount")) {
+    document.getElementById("totalAmount").innerHTML = cart.total || "$0.00";
+  }
+}
+
+// Run Functions
+greeting(hour);
+ActiveNav();
 getWeather();
+loadCartIntoCheckout();
