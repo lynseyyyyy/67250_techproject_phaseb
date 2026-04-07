@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Lynsey Li" />
+  <meta name="keywords" content="Museum, Carnegie Mellon University, Information Systems" />
+  <meta name="description" content="MonoMuse Official Website" />
+  <title>Buy Tickets — MonoMuse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/style.css">
+  <script src="../static/script.js" defer></script>
+</head>
+<body onload="addYear()">
+
+  <div class="container">
+
+    <header class="header">
+      <img id="logo" src="../static/logo.png" alt="MonoMuse Museum Logo">
+    </header>
+
+    <nav class="nav_bar" id="navbar">
+      <a href="../index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="buytickets.html" class="nav-tickets">Tickets</a>
+      <a href="checkout.html" class="nav-cart">Checkout</a>
+      <a href="javascript:void(0);" class="icon" onclick="hamburgerMenu()">☰</a>
+    </nav>
+
+    <main class="main">
+  <h1>Buy Tickets</h1>
+  <p>Select a date to purchase tickets. Members always enjoy free entry!</p>
+
+  <!-- Ticket Pricing Table -->
+  <h2>Ticket Prices</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Ticket Type</th>
+        <th>Description</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Adult</td>
+        <td>Full access to all current exhibitions</td>
+        <td>$18</td>
+      </tr>
+      <tr>
+        <td>Senior (65+)</td>
+        <td>Discounted admission for seniors</td>
+        <td>$13</td>
+      </tr>
+      <tr>
+        <td>Student</td>
+        <td>Valid student ID required at entry</td>
+        <td>$9</td>
+      </tr>
+      <tr>
+        <td>Child</td>
+        <td>Admission for children</td>
+        <td>$9</td>
+      </tr>
+      <tr>
+        <td>Child (Under 3)</td>
+        <td>Free entry for children under 3</td>
+        <td>$0</td>
+      </tr>
+      <tr>
+        <td>Member</td>
+        <td>Free entry — membership benefits apply</td>
+        <td>$0</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="section-divider" />
+
+  <!-- Calendar Header -->
+  <h2>Plan Your Visit</h2>
+  <p>Select a date below. The museum is <strong>closed on Tuesdays</strong>.</p>
+
+  <!-- Calendar Controls -->
+  <div class="calendar-controls">
+
+    <div class="calendar-nav">
+      <button onclick="changeMonth(-1)">&#8249;</button>
+      <span id="calMonthLabel">April 2026</span>
+      <button onclick="changeMonth(1)">&#8250;</button>
+    </div>
+
+    <div class="view-toggle">
+      <button id="btnDay"   onclick="setView('day')">Day</button>
+      <button id="btnWeek"  onclick="setView('week')">Week</button>
+      <button id="btnMonth" onclick="setView('month')" class="active-view">Month</button>
+    </div>
+
+  </div>
+
+  <!-- Month View — default -->
+  <div id="viewMonth">
+    <h3 id="calMonthTitle">April 2026</h3>
+    <table class="calendar-grid">
+      <thead>
+        <tr>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+        </tr>
+      </thead>
+      <tbody id="calendarBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Week View — hidden by default -->
+  <div id="viewWeek" style="display:none;">
+    <h3 id="weekTitle">Week of April 6, 2026</h3>
+    <table class="calendar-grid">
+      <thead>
+        <tr>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+        </tr>
+      </thead>
+      <tbody id="weekBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Day View — hidden by default -->
+  <div id="viewDay" style="display:none;">
+    <h3 id="dayTitle">Monday, April 6, 2026</h3>
+    <div id="dayContent" style="padding:20px; border:1px solid #e0e0e0; border-radius:4px;"></div>
+  </div>
+
+  <hr class="section-divider" />
+
+<!-- Booking Panel — expands when user clicks an event pill -->
+<div id="purchaseForm" style="display:none;">
+
+  <h2>Complete Your Booking</h2>
+  <p>Selected date: <strong id="selectedDateLabel"></strong></p>
+
+  <!-- Time Slot Selector -->
+  <h3>Choose a Time</h3>
+  <div class="time-grid">
+    <button class="time-btn" onclick="selectTime(this, '10:00 AM')">10:00 AM</button>
+    <button class="time-btn" onclick="selectTime(this, '10:30 AM')">10:30 AM</button>
+    <button class="time-btn" onclick="selectTime(this, '11:00 AM')">11:00 AM</button>
+    <button class="time-btn" onclick="selectTime(this, '11:30 AM')">11:30 AM</button>
+    <button class="time-btn" onclick="selectTime(this, '12:00 PM')">12:00 PM</button>
+    <button class="time-btn" onclick="selectTime(this, '12:30 PM')">12:30 PM</button>
+    <button class="time-btn" onclick="selectTime(this, '1:00 PM')">1:00 PM</button>
+    <button class="time-btn" onclick="selectTime(this, '1:30 PM')">1:30 PM</button>
+    <button class="time-btn" onclick="selectTime(this, '2:00 PM')">2:00 PM</button>
+    <button class="time-btn" onclick="selectTime(this, '2:30 PM')">2:30 PM</button>
+    <button class="time-btn" onclick="selectTime(this, '3:00 PM')">3:00 PM</button>
+    <button class="time-btn" onclick="selectTime(this, '3:30 PM')">3:30 PM</button>
+  </div>
+
+  <!-- Ticket Categories — shown after time is selected -->
+  <div id="ticketSection" style="display:none;">
+
+    <h3>Choose Tickets</h3>
+    <p>Selected time: <strong id="selectedTimeLabel"></strong></p>
+
+    <div class="ticket-categories">
+
+      <div class="ticket-row">
+        <div class="t-name">Adult</div>
+        <div class="t-price">
+          <p>Price</p>
+          <strong>$18.00</strong>
+        </div>
+        <div class="t-qty">
+          <p>Quantity</p>
+          <select id="qty-adult" onchange="updateTotal()">
+            <option>0</option><option>1</option><option>2</option>
+            <option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ticket-row">
+        <div class="t-name">Senior (65+)</div>
+        <div class="t-price">
+          <p>Price</p>
+          <strong>$13.00</strong>
+        </div>
+        <div class="t-qty">
+          <p>Quantity</p>
+          <select id="qty-senior" onchange="updateTotal()">
+            <option>0</option><option>1</option><option>2</option>
+            <option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ticket-row">
+        <div class="t-name">Student</div>
+        <div class="t-price">
+          <p>Price</p>
+          <strong>$9.00</strong>
+        </div>
+        <div class="t-qty">
+          <p>Quantity</p>
+          <select id="qty-student" onchange="updateTotal()">
+            <option>0</option><option>1</option><option>2</option>
+            <option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ticket-row">
+        <div class="t-name">Child</div>
+        <div class="t-price">
+          <p>Price</p>
+          <strong>$9.00</strong>
+        </div>
+        <div class="t-qty">
+          <p>Quantity</p>
+          <select id="qty-child" onchange="updateTotal()">
+            <option>0</option><option>1</option><option>2</option>
+            <option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ticket-row">
+        <div class="t-name">Child (Under 3)</div>
+        <div class="t-price">
+          <p>Price</p>
+          <strong>$0.00</strong>
+        </div>
+        <div class="t-qty">
+          <p>Quantity</p>
+          <select id="qty-infant" onchange="updateTotal()">
+            <option>0</option><option>1</option><option>2</option>
+            <option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ticket-row">
+        <div class="t-name">Member</div>
+        <div class="t-price">
+          <p>Price</p>
+          <strong>$0.00</strong>
+        </div>
+        <div class="t-qty">
+          <p>Quantity</p>
+          <select id="qty-member" onchange="updateTotal()">
+            <option>0</option><option>1</option><option>2</option>
+            <option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live order total -->
+    <div class="order-total">
+      <span>Total</span>
+      <span id="orderTotal">$0.00</span>
+    </div>
+
+    <button class="btn-cart" type="button" onclick="addToCart()">
+      Add to Cart →
+    </button>
+
+  </div>
+</div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <p>117 Sandusky Street<br>Pittsburgh, PA 15212</p>
+      <p class="footer-hours">Open Tue–Sun, 10 a.m.–5 p.m.</p>
+      <div id="weather"></div>
+    </div>
+    <div class="footer-links">
+      <h4>Visit</h4>
+      <a href="../index.html">Home</a>
+      <a href="explore.html">About the Museum</a>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="buytickets.html">Buy Tickets</a>
+      <a href="checkout.html">Checkout</a>
+      <a href="#">Membership</a>
+    </div>
+    <div class="footer-extras">
+      <h4>More</h4>
+      <a href="#">Newsletter</a>
+      <a href="#">Accessibility</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Press</a>
+      <a href="#">Careers</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p id="copyYear"></p>
+    <p>One of Pittsburgh's premier contemporary art spaces.</p>
+  </div>
+</footer>
+
+  </div>
+
+  <script>
+  // State variables — from lecture: var, arrays, objects
+  var currentYear  = 2026;
+  var currentMonth = 3; // 0-indexed: 3 = April
+
+  var monthNames = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  var dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+  // Events array — each object has month (0-indexed), day, label
+  var events = [];
+
+  // Add General Admission for every open day from April–December 2026
+  function populateGeneralAdmission() {
+    for (var m = 0; m <= 11; m++) {
+      var daysInMonth = new Date(currentYear, m + 1, 0).getDate();
+
+      for (var d = 1; d <= daysInMonth; d++) {
+        var dayOfWeek = new Date(currentYear, m, d).getDay();
+
+        // Closed on Tuesdays
+        if (dayOfWeek !== 2) {
+          events.push({ month: m, day: d, label: "General Admission" });
+        }
+      }
+    }
+  }
+
+  // Add special events manually
+  function addSpecialEvents() {
+    events.push({ month: 3, day: 13, label: "8:00 PM — Sound Series" });
+    events.push({ month: 3, day: 15, label: "5:00 PM — Youth Event" });
+
+    events.push({ month: 4, day: 9,  label: "7:00 PM — Artist Talk" });
+    events.push({ month: 4, day: 21, label: "6:30 PM — Student Night" });
+
+    events.push({ month: 5, day: 12, label: "8:00 PM — Media Performance" });
+    events.push({ month: 5, day: 26, label: "1:00 PM — Family Workshop" });
+
+    events.push({ month: 6, day: 10, label: "6:00 PM — Summer Opening" });
+    events.push({ month: 6, day: 24, label: "2:00 PM — Curator Tour" });
+
+    events.push({ month: 7, day: 14, label: "7:30 PM — Sound Series" });
+    events.push({ month: 7, day: 28, label: "3:00 PM — Youth Event" });
+
+    events.push({ month: 8, day: 11, label: "6:00 PM — Member Preview" });
+    events.push({ month: 8, day: 25, label: "1:00 PM — Family Workshop" });
+
+    events.push({ month: 9, day: 8,  label: "7:00 PM — Artist Talk" });
+    events.push({ month: 9, day: 22, label: "5:30 PM — Design Lecture" });
+
+    events.push({ month: 10, day: 6,  label: "6:00 PM — Fall Opening" });
+    events.push({ month: 10, day: 20, label: "2:00 PM — Curator Tour" });
+
+    events.push({ month: 11, day: 4,  label: "7:00 PM — Winter Program" });
+    events.push({ month: 11, day: 18, label: "1:00 PM — Family Day" });
+  }
+
+  populateGeneralAdmission();
+  addSpecialEvents();
+
+  // Helper — get events for a specific day using a for loop
+  function getEventsForDay(month, day) {
+    var result = [];
+    for (var i = 0; i < events.length; i++) {
+      if (events[i].month === month && events[i].day === day) {
+        result.push(events[i].label);
+      }
+    }
+    return result;
+  }
+
+  // Build Month View
+  function buildMonthView() {
+    var label = monthNames[currentMonth] + " " + currentYear;
+    document.getElementById("calMonthLabel").innerHTML = label;
+    document.getElementById("calMonthTitle").innerHTML = label;
+
+    var firstDay    = new Date(currentYear, currentMonth, 1).getDay();
+    var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    var daysInPrev  = new Date(currentYear, currentMonth, 0).getDate();
+
+    var today = new Date();
+
+    var html      = "";
+    var dayCount  = 1;
+    var nextCount = 1;
+
+    // 6 rows x 7 columns
+    for (var row = 0; row < 6; row++) {
+      html += "<tr>";
+      for (var col = 0; col < 7; col++) {
+        var cellNum   = row * 7 + col;
+        var dayNum    = cellNum - firstDay + 1;
+        var isTuesday = (col === 2);
+        var cellClass = "";
+        var displayNum = "";
+
+        if (dayNum < 1) {
+          displayNum = daysInPrev + dayNum;
+          cellClass = "other-month";
+        } else if (dayNum > daysInMonth) {
+          displayNum = nextCount;
+          nextCount++;
+          cellClass = "other-month";
+        } else {
+          displayNum = dayNum;
+          if (isTuesday) {
+            cellClass = "closed";
+          }
+          if (
+            dayNum    === today.getDate() &&
+            currentMonth === today.getMonth() &&
+            currentYear  === today.getFullYear()
+          ) {
+            cellClass += " today";
+          }
+        }
+
+        html += "<td class='" + cellClass + "'>";
+        html += "<span class='day-num'>" + displayNum + "</span>";
+
+        // Add event pills — only current month, not Tuesdays
+        if (dayNum >= 1 && dayNum <= daysInMonth && !isTuesday) {
+          var dayEvents = getEventsForDay(currentMonth, dayNum);
+          for (var e = 0; e < dayEvents.length; e++) {
+            html += "<span class='event-pill' onclick='selectDate(" + dayNum + ")'>"
+                  + dayEvents[e] + "</span>";
+          }
+        }
+
+        if (isTuesday && dayNum >= 1 && dayNum <= daysInMonth) {
+          html += "<span style='font-size:0.75rem; color:#bbbbbb;'>Closed</span>";
+        }
+
+        html += "</td>";
+      }
+      html += "</tr>";
+      if (dayNum > daysInMonth) { break; }
+    }
+
+    document.getElementById("calendarBody").innerHTML = html;
+  }
+
+  // Build Week View
+  function buildWeekView() {
+    var firstOfMonth = new Date(currentYear, currentMonth, 1);
+    var weekStart = new Date(firstOfMonth);
+    weekStart.setDate(firstOfMonth.getDate() - firstOfMonth.getDay());
+
+    var label = "Week of " + monthNames[weekStart.getMonth()] + " "
+              + weekStart.getDate() + ", " + weekStart.getFullYear();
+    document.getElementById("weekTitle").innerHTML = label;
+
+    var html = "<tr>";
+    for (var d = 0; d < 7; d++) {
+      var dayDate   = new Date(weekStart);
+      dayDate.setDate(weekStart.getDate() + d);
+      var isTuesday = (d === 2);
+      var cellClass = isTuesday ? "closed" : "";
+
+      html += "<td class='" + cellClass + "'>";
+      html += "<span class='day-num'>" + dayDate.getDate() + "</span>";
+
+      if (!isTuesday) {
+        var dayEvts = getEventsForDay(dayDate.getMonth(), dayDate.getDate());
+        for (var e = 0; e < dayEvts.length; e++) {
+          html += "<span class='event-pill' onclick='selectDate(" + dayDate.getDate() + ")'>"
+                + dayEvts[e] + "</span>";
+        }
+      } else {
+        html += "<span style='font-size:0.75rem; color:#bbbbbb;'>Closed</span>";
+      }
+      html += "</td>";
+    }
+    html += "</tr>";
+    document.getElementById("weekBody").innerHTML = html;
+  }
+
+  // Build Day View
+  function buildDayView() {
+    var firstOfMonth = new Date(currentYear, currentMonth, 1);
+    var label = dayNames[firstOfMonth.getDay()] + ", "
+              + monthNames[currentMonth] + " 1, " + currentYear;
+    document.getElementById("dayTitle").innerHTML = label;
+
+    var isTuesday = (firstOfMonth.getDay() === 2);
+    var html = "";
+
+    if (isTuesday) {
+      html = "<p style='color:#999;'>The museum is <strong>closed on Tuesdays</strong>.</p>";
+    } else {
+      var dayEvts = getEventsForDay(currentMonth, 1);
+      if (dayEvts.length === 0) {
+        html = "<p>No special events today. General admission available.</p>";
+      } else {
+        for (var e = 0; e < dayEvts.length; e++) {
+          html += "<div class='event-pill' style='display:inline-block; margin:4px;'>"
+                + dayEvts[e] + "</div>";
+        }
+      }
+    }
+    document.getElementById("dayContent").innerHTML = html;
+  }
+
+  // Change month with < > buttons
+  function changeMonth(direction) {
+    currentMonth += direction;
+    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    if (currentMonth < 0)  { currentMonth = 11; currentYear--; }
+    buildMonthView();
+  }
+
+  // Switch between Day / Week / Month views
+  function setView(view) {
+    document.getElementById("viewMonth").style.display = "none";
+    document.getElementById("viewWeek").style.display  = "none";
+    document.getElementById("viewDay").style.display   = "none";
+
+    document.getElementById("btnDay").className   = "";
+    document.getElementById("btnWeek").className  = "";
+    document.getElementById("btnMonth").className = "";
+
+    if (view === "month") {
+      document.getElementById("viewMonth").style.display = "block";
+      document.getElementById("btnMonth").className = "active-view";
+      buildMonthView();
+    } else if (view === "week") {
+      document.getElementById("viewWeek").style.display = "block";
+      document.getElementById("btnWeek").className = "active-view";
+      buildWeekView();
+    } else if (view === "day") {
+      document.getElementById("viewDay").style.display = "block";
+      document.getElementById("btnDay").className = "active-view";
+      buildDayView();
+    }
+  }
+
+  // When user clicks an event pill — show purchase form
+  function selectDate(day) {
+    var label = monthNames[currentMonth] + " " + day + ", " + currentYear;
+    document.getElementById("selectedDateLabel").innerHTML = label;
+    document.getElementById("purchaseForm").style.display = "block";
+    document.getElementById("purchaseForm").scrollIntoView({ behavior: "smooth" });
+  }
+
+  // Run on page load
+  buildMonthView();
+  // Ticket prices — parallel arrays pattern from lecture
+  var ticketPrices = {
+    "qty-adult":   18,
+    "qty-senior":  13,
+    "qty-student":  9,
+    "qty-child":    9,
+    "qty-infant":   0,
+    "qty-member":   0
+  };
+
+  // Select a time slot — highlight selected button
+  function selectTime(btn, time) {
+    // Remove selected class from all time buttons
+    var allBtns = document.querySelectorAll('.time-btn');
+    for (var i = 0; i < allBtns.length; i++) {
+      allBtns[i].className = "time-btn";
+    }
+    // Add selected class to clicked button
+    btn.className = "time-btn selected-time";
+
+    // Show ticket section and update label
+    document.getElementById("selectedTimeLabel").innerHTML = time;
+    document.getElementById("ticketSection").style.display = "block";
+  }
+
+  // Update order total when quantities change
+  function updateTotal() {
+    var total = 0;
+    var ids = ["qty-adult","qty-senior","qty-student","qty-child","qty-infant","qty-member"];
+
+    for (var i = 0; i < ids.length; i++) {
+      var qty   = parseInt(document.getElementById(ids[i]).value);
+      var price = ticketPrices[ids[i]];
+      total += qty * price;
+    }
+
+    document.getElementById("orderTotal").innerHTML = "$" + total.toFixed(2);
+  }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Lynsey Li" />
+  <meta name="keywords" content="Museum, Carnegie Mellon University, Information Systems" />
+  <meta name="description" content="MonoMuse website redesign project" />
+  <title>MonoMuse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./static/style.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="./static/script.js" defer></script>
+</head>
+<body onload="addYear()">
+
+  <div class="container">
+
+    <header class="header">
+      <img id="logo" src="./static/logo.png" alt="MonoMuse Museum Logo">
+    </header>
+    
+    <nav class="nav_bar" id="navbar">
+      <a href="index.html">Home</a>
+      <a href="views/explore.html">Explore</a>
+      <a href="views/exhibitions.html">Exhibitions</a>
+      <a href="views/buytickets.html" class="nav-tickets">Tickets</a>
+      <a href="views/checkout.html" class="nav-cart">Checkout</a>
+      <a href="javascript:void(0);" class="icon" onclick="hamburgerMenu()">☰</a>
+    </nav>
+
+<main class="main">
+
+  <!-- Announcement bar -->
+  <div class="announcement">
+    ⚠ MonoMuse is open Monday, Wednesday–Sunday, 10 a.m.–5 p.m. Closed Tuesdays.
+  </div>
+
+  <!-- Hero video section -->
+  <div class="hero-video">
+    <iframe
+      src="https://www.youtube.com/embed/nxUUliRA0Co?si=XRi0_51qncNblB0C"
+      title="MonoMuse featured video"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- Intro text below video -->
+  <div class="hero-intro">
+    <h1 id="greeting"></h1>
+    <h1>Welcome to MonoMuse!</h1>
+    <p>
+      A contemporary museum dedicated to exploring the intersection
+      of art, technology, and human creativity in Pittsburgh, PA.
+    </p>
+    <a class="cta" href="views/buytickets.html">Buy Tickets</a>
+  </div>
+
+  <!-- Mission statement -->
+  <div class="mission-statement">
+    <p>
+      MonoMuse invites visitors to discover how digital innovation is transforming
+      the way we create, experience, and understand art — there is something new every visit.
+    </p>
+  </div>
+
+  <!-- What's On — exhibition cards -->
+  <h2>What's On</h2>
+  <div class="card-grid">
+
+    <div class="card">
+      <div class="card-text">
+        <span class="card-label">Exhibition</span>
+        <h3>Echoes in the Machine</h3>
+        <p>AI interprets human emotion through sound, form, and light.</p>
+        <p style="font-size:0.9rem; font-weight:600;">April 1 – August 30, 2026</p>
+        <a href="views/exhibitions.html">Learn more →</a>
+      </div>
+      <div class="card-image">
+        <img src="./static/exhibit1.png" alt="Contemporary design exhibition with sculptural furniture and graphic wall installations">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-text">
+        <span class="card-label">Exhibition</span>
+        <h3>Fragmented Realities</h3>
+        <p>An immersive installation exploring identity, perception, and the digital self.</p>
+        <p style="font-size:0.9rem; font-weight:600;">March 15 – October 31, 2026</p>
+        <a href="views/exhibitions.html">Learn more →</a>
+      </div>
+      <div class="card-image">
+        <img src="./static/exhibit2.png" alt="Immersive digital projection exhibition filling the walls and floor with blooming visuals">
+      </div>
+    </div>
+
+    <div class="card card-horizontal">
+      <div class="card-text">
+        <span class="card-label">Featured Installation</span>
+        <h3>Living Systems</h3>
+        <p>A futuristic environment where art, nature, and technology converge.</p>
+        <p style="font-size:0.9rem; font-weight:600;">Year-round feature</p>
+        <a href="views/exhibitions.html">Learn more →</a>
+      </div>
+
+      <div class="card-image">
+        <img src="./static/exhibit3.png" alt="Large-scale suspended installation with plant-like forms and layered environmental design">
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="section-divider" />
+
+  <div class="info-sections">
+
+  <!-- About — Read More / Less toggle from increment 4 -->
+  <h2>About the Museum</h2>
+  <p id="shortIntro">MonoMuse features rotating exhibitions, permanent collections,
+  and special events year-round. Founded in 2008 in downtown Pittsburgh.</p>
+
+  <p id="longIntro" style="display:none;">Our museum spans four wings, each dedicated
+  to a different aspect of contemporary art and technology. From interactive digital
+  installations to curated analog archives, there is something for every kind of visitor.
+  We also offer guided tours, educational workshops, and membership programs.</p>
+
+  <button id="readMore">Read More</button>
+  <button id="readLess" style="display:none;">Read Less</button>
+
+  <!-- Visit info -->
+  <h2>Plan Your Visit</h2>
+  <div class="visit-grid">
+    <div>
+      <h3>Hours</h3>
+      <p>Tuesday – Sunday: 10 a.m. – 5 p.m.<br>Monday: Closed</p>
+    </div>
+    <div>
+      <h3>Admission</h3>
+      <p>Adult: $18 &nbsp;|&nbsp; Senior: $13 &nbsp;|&nbsp; Student / Child: $9 &nbsp;|&nbsp; Member: Free</p>    </div>
+    <div>
+      <h3>Location</h3>
+      <p>117 Sandusky Street<br>Pittsburgh, PA 15212</p>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <p>117 Sandusky Street<br>Pittsburgh, PA 15212</p>
+      <p class="footer-hours">Open Mon, Wed–Sun, 10 a.m.–5 p.m.</p>
+      <div id="weather"></div>
+    </div>
+    <div class="footer-links">
+      <h4>Visit</h4>
+      <a href="index.html">Home</a>
+      <a href="views/explore.html">About the Museum</a>
+      <a href="views/exhibitions.html">Exhibitions</a>
+      <a href="views/buytickets.html">Buy Tickets</a>
+      <a href="views/checkout.html">Checkout</a>
+      <a href="#">Membership</a>
+    </div>
+    <div class="footer-extras">
+      <h4>More</h4>
+      <a href="#">Newsletter</a>
+      <a href="#">Accessibility</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Press</a>
+      <a href="#">Careers</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p id="copyYear"></p>
+    <p>One of Pittsburgh's premier contemporary art spaces.</p>
+  </div>
+</footer>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Lynsey Li" />
+  <meta name="keywords" content="Museum, Carnegie Mellon University, Information Systems" />
+  <meta name="description" content="MonoMuse Official Website" />
+  <title>Cart — MonoMuse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/style.css">
+  <script src="../static/script.js" defer></script>
+</head>
+<body onload="addYear()">
+
+  <div class="container">
+
+    <header class="header">
+      <img id="logo" src="../static/logo.png" alt="MonoMuse Museum Logo">
+    </header>
+
+    <nav class="nav_bar" id="navbar">
+      <a href="../index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="buytickets.html" class="nav-tickets">Tickets</a>
+      <a href="checkout.html" class="nav-cart">Cart</a>
+      <a href="javascript:void(0);" class="icon" onclick="hamburgerMenu()">☰</a>
+    </nav>
+
+    <main class="main">
+      <div class="page-shell">
+        <h1>Your Cart</h1>
+        <p>Review your selected tickets and continue to checkout.</p>
+
+        <div id="cartSummary" style="border:1px solid #e0e0e0; border-radius:4px; padding:20px 24px; max-width:520px; margin:0 auto 28px auto; background:#f9f9f9;">          
+          <p><strong>Date:</strong> <span id="cartDate">—</span></p>
+          <p><strong>Time:</strong> <span id="cartTime">—</span></p>
+          <p><strong>Total Tickets:</strong> <span id="cartQty">—</span></p>
+          <p><strong>Total:</strong> <span id="cartTotal">$0.00</span></p>
+        </div>
+
+        <hr class="section-divider" />
+
+        <h2 class="checkout-section-title">Checkout</h2>
+
+        <!-- SECTION 1: Quick Ticket Selection -->
+        <h2>1. Visit Details</h2>
+
+        <div class="form-group">
+          <label for="visitDate">Visit Date</label>
+          <input type="date" id="visitDate" name="visitDate"
+                 min="2026-04-06" max="2026-12-31"
+                 onchange="updateSummary()" required />
+        </div>
+
+        <div class="form-group">
+          <label>Ticket Type</label>
+          <div class="radio-group">
+            <label><input type="radio" name="ticketType" value="Adult" onclick="updateSummary()" /> Adult — $18</label>
+            <label><input type="radio" name="ticketType" value="Senior" onclick="updateSummary()" /> Senior  — $13</label>
+            <label><input type="radio" name="ticketType" value="Student" onclick="updateSummary()" /> Student — $9</label>
+            <label><input type="radio" name="ticketType" value="Child" onclick="updateSummary()" /> Child — $9</label>
+            <label><input type="radio" name="ticketType" value="Member" onclick="updateSummary()" /> Member — Free</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Number of Tickets (1–10)</label>
+          <input type="number" id="quantity" name="quantity"
+                 min="1" max="10" value="1"
+                 oninput="updateSummary()" required />
+        </div>
+
+        <!-- Live order total -->
+        <div style="background-color:#f9f9f9; border:1px solid #e0e0e0; border-radius:4px; padding:16px 20px; max-width:480px; margin-bottom:32px;">
+          <strong>Order Total: </strong><span id="totalAmount">$0.00</span>
+        </div>
+
+        <hr class="section-divider" />
+
+        <!-- SECTION 2: Contact Information -->
+        <h2>2. Contact Information</h2>
+
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number (optional)</label>
+          <input type="tel" id="phone" name="phone" placeholder="(412) 000-0000" />
+        </div>
+
+        <hr class="section-divider" />
+
+        <!-- SECTION 3: Payment -->
+        <h2>3. Payment</h2>
+
+        <div class="form-group">
+          <label>Payment Method</label>
+          <div class="radio-group">
+            <label><input type="radio" name="payMethod" value="card" onclick="showPayment('card')" checked /> Credit / Debit Card</label>
+            <label><input type="radio" name="payMethod" value="paypal" onclick="showPayment('paypal')" /> PayPal</label>
+          </div>
+        </div>
+
+        <!-- Card fields -->
+        <div id="cardFields">
+          <div class="form-group">
+            <label for="cardName">Name on Card</label>
+            <input type="text" id="cardName" placeholder="JANE SMITH" required />
+          </div>
+
+          <div class="form-group">
+            <label for="cardNum">Card Number</label>
+            <input type="text" id="cardNum" placeholder="1234 5678 9012 3456"
+                   maxlength="19" oninput="formatCardNum(this)" required />
+          </div>
+
+          <div class="card-row">
+            <div class="form-group">
+              <label for="expiry">Expiry Date</label>
+              <input type="text" id="expiry" placeholder="MM / YY"
+                     maxlength="7" oninput="formatExpiry(this)" required />
+            </div>
+            <div class="form-group">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" placeholder="123" maxlength="4" required />
+            </div>
+          </div>
+        </div>
+
+        <!-- PayPal message -->
+        <div id="paypalFields" style="display:none;">
+          <div style="background-color:#fde8a8; border-radius:4px; padding:20px 24px; max-width:480px;">
+            <p style="margin:0;">You will be redirected to PayPal to complete your payment securely.</p>
+          </div>
+        </div>
+
+        <hr class="section-divider" />
+
+        <!-- SECTION 4: Order Summary -->
+        <h2>4. Order Summary</h2>
+        <div style="border:1px solid #e0e0e0; border-radius:4px; padding:20px 24px; max-width:480px; margin-bottom:28px;">
+          <p style="margin-bottom:8px;"><strong>Date:</strong> <span id="summaryDate">—</span></p>
+          <p style="margin-bottom:8px;"><strong>Ticket Type:</strong> <span id="summaryType">—</span></p>
+          <p style="margin-bottom:8px;"><strong>Quantity:</strong> <span id="summaryQty">—</span></p>
+          <p style="margin-bottom:0; font-size:1.1rem;"><strong>Total:</strong> <span id="summaryTotal">$0.00</span></p>
+        </div>
+
+        <button class="btn-submit" type="button" onclick="placeOrder()">Place Order</button>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p>117 Sandusky Street<br>Pittsburgh, PA 15212</p>
+          <p class="footer-hours">Open Tue–Sun, 10 a.m.–5 p.m.</p>
+          <div id="weather"></div>
+        </div>
+        <div class="footer-links">
+          <h4>Visit</h4>
+          <a href="../index.html">Home</a>
+          <a href="explore.html">About the Museum</a>
+          <a href="exhibitions.html">Exhibitions</a>
+          <a href="buytickets.html">Buy Tickets</a>
+          <a href="checkout.html">Checkout</a>
+          <a href="#">Membership</a>
+        </div>
+        <div class="footer-extras">
+          <h4>More</h4>
+          <a href="#">Newsletter</a>
+          <a href="#">Accessibility</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Press</a>
+          <a href="#">Careers</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p id="copyYear"></p>
+        <p>One of Pittsburgh's premier contemporary art spaces.</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+  var prices = {
+    "Adult": 18,
+    "Senior": 13,
+    "Student": 9,
+    "Child": 9,
+    "Member": 0
+  };
+    // Update summary and total live as user fills form
+    function updateSummary() {
+      var typeInputs = document.getElementsByName("ticketType");
+      var selectedType = "";
+      for (var i = 0; i < typeInputs.length; i++) {
+        if (typeInputs[i].checked) {
+          selectedType = typeInputs[i].value;
+        }
+      }
+
+      var qty = parseInt(document.getElementById("quantity").value);
+      var date = document.getElementById("visitDate").value;
+      if (isNaN(qty) || qty < 1) {
+        qty = 1;
+      }
+
+      var price = prices[selectedType] || 0;
+      var total = "$" + (price * qty).toFixed(2);
+
+      document.getElementById("totalAmount").innerHTML = total;
+      document.getElementById("summaryTotal").innerHTML = total;
+      document.getElementById("summaryType").innerHTML = selectedType || "—";
+      document.getElementById("summaryQty").innerHTML = qty;
+      document.getElementById("summaryDate").innerHTML = date || "—";
+    }
+
+    // Toggle card vs PayPal fields
+    function showPayment(method) {
+      if (method === "card") {
+        document.getElementById("cardFields").style.display = "block";
+        document.getElementById("paypalFields").style.display = "none";
+      } else {
+        document.getElementById("cardFields").style.display = "none";
+        document.getElementById("paypalFields").style.display = "block";
+      }
+    }
+
+    // Format card number: 1234 5678 9012 3456
+    function formatCardNum(input) {
+      var val = input.value.replace(/\D/g, "");
+      var formatted = "";
+      for (var i = 0; i < val.length; i++) {
+        if (i > 0 && i % 4 === 0) {
+          formatted += " ";
+        }
+        formatted += val[i];
+      }
+      input.value = formatted;
+    }
+
+    // Format expiry: MM / YY
+    function formatExpiry(input) {
+      var val = input.value.replace(/\D/g, "");
+      if (val.length > 2) {
+        input.value = val.substring(0, 2) + " / " + val.substring(2, 4);
+      } else {
+        input.value = val;
+      }
+    }
+
+    // Validate and place order
+    function placeOrder() {
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var date = document.getElementById("visitDate").value;
+
+      var typeInputs = document.getElementsByName("ticketType");
+      var selectedType = "";
+      for (var i = 0; i < typeInputs.length; i++) {
+        if (typeInputs[i].checked) {
+          selectedType = typeInputs[i].value;
+        }
+      }
+
+      if (name === "" || email === "" || date === "" || selectedType === "") {
+        alert("Please fill in all required fields before placing your order.");
+        return;
+      }
+
+      alert("Thank you, " + name + "!\n\nYour " + selectedType
+        + " tickets for " + date
+        + " have been booked.\nA confirmation will be sent to " + email + ".");
+    }
+  </script>
+
+</body>
+</html>
