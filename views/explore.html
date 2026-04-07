@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Lynsey Li" />
+  <meta name="keywords" content="Museum, Carnegie Mellon University, Information Systems" />
+  <meta name="description" content="MonoMuse Official Website" />
+  <title>Explore — MonoMuse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body onload="addYear()">
+
+  <div class="container">
+
+    <header class="header">
+      <img id="logo" src="../static/logo.png" alt="MonoMuse Museum Logo">
+    </header>
+
+    <nav class="nav_bar" id="navbar">
+      <a href="../index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="buytickets.html" class="nav-tickets">Tickets</a>
+      <a href="checkout.html" class="nav-cart">Cart</a>
+      <a href="javascript:void(0);" class="icon" onclick="hamburgerMenu()">☰</a>
+    </nav>
+
+    <main class="main">
+      <h1 class="page-title">Explore</h1>
+
+      <div class="explore-hero-image">
+        <img src="../static/exhibit4.png" alt="Interior of MonoMuse showing a digital art installation">
+      </div>
+
+      <h2 class="exhibit-title">Our Mission</h2>
+      <p class="exhibit-text">
+        MonoMuse is dedicated to exploring the evolving relationship between art,
+        technology, and society. We create spaces where visitors can engage deeply
+        with contemporary ideas through immersive, interactive experiences.
+      </p>
+
+      <h2 class="exhibit-title">Who We Serve</h2>
+      <div class="explore-text-block">
+        <ul class="explore-list">
+          <li>First-time visitors curious about contemporary art</li>
+          <li>Students and educators seeking immersive learning experiences</li>
+          <li>Members who return regularly for new exhibitions and events</li>
+          <li>Families looking for creative, hands-on activities</li>
+        </ul>
+      </div>
+
+      <h2 class="exhibit-title">Founding Year</h2>
+      <p class="exhibit-text">
+        MonoMuse was founded in 2008 with a vision to make contemporary art
+        and technology accessible to everyone.
+      </p>
+
+      <h2 class="exhibit-title">Milestones</h2>
+      <div class="explore-text-block">
+        <ul class="explore-list">
+          <li>2008 — Museum founded in downtown Pittsburgh</li>
+          <li>2012 — East Wing expansion opens</li>
+          <li>2017 — Launch of the Digital Futures permanent collection</li>
+          <li>2023 — Online ticketing system launched</li>
+        </ul>
+      </div>
+
+      <h2 class="exhibit-title">Find Us</h2>
+      <p class="exhibit-text">Visit us in downtown Pittsburgh!</p>
+
+      <div class="explore-map-wrap">
+        <div id="map"></div>
+      </div>
+
+      <div class="page-cta">
+        <a class="cta" href="buytickets.html">Buy Tickets</a>
+      </div>
+    </main>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <p>117 Sandusky Street<br>Pittsburgh, PA 15212</p>
+      <p class="footer-hours">Open Tue–Sun, 10 a.m.–5 p.m.</p>
+      <div id="weather"></div>
+    </div>
+    <div class="footer-links">
+      <h4>Visit</h4>
+      <a href="../index.html">Home</a>
+      <a href="explore.html">About the Museum</a>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="buytickets.html">Buy Tickets</a>
+      <a href="checkout.html">Checkout</a>
+      <a href="#">Membership</a>
+    </div>
+    <div class="footer-extras">
+      <h4>More</h4>
+      <a href="#">Newsletter</a>
+      <a href="#">Accessibility</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Press</a>
+      <a href="#">Careers</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p id="copyYear"></p>
+    <p>One of Pittsburgh's premier contemporary art spaces.</p>
+  </div>
+</footer>
+
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="../static/script.js"></script>
+
+</body>
+</html>
